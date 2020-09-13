@@ -1,0 +1,53 @@
+
+<div id="container">
+    <div _ngcontent-orq-c5="" class="card-body">
+        <h4 _ngcontent-orq-c5="" class="card-title">
+            Bienvenido a Pizza BOOM
+        </h4>
+        <p _ngcontent-orq-c5="" class="card-description"> 
+            Disfruta de nuestras comidas 
+        </p>
+        <form _ngcontent-orq-c5="" 
+            class="forms-sample ng-untouched ng-pristine ng-valid" 
+            novalidate=""
+            id="loginform" 
+            autocomplete="off"
+            [formGroup]="inizilizarForm"
+            (ngSubmit)="login()"
+            >
+            <div _ngcontent-orq-c5="" class="form-group row">
+                <label _ngcontent-orq-c5="" class="col-sm-3 col-form-label" for="exampleInputEmail2">
+                    Email
+                </label>
+                <div _ngcontent-orq-c5="" class="col-sm-9">
+                    <input _ngcontent-orq-c5="" 
+                            class="form-control" 
+                            id="exampleInputEmail2" 
+                            placeholder="Ingrese email" 
+                            type="email"
+                            formControlName="email">
+                </div>
+            </div>
+            <div _ngcontent-orq-c5="" class="form-group row">
+                <label _ngcontent-orq-c5="" class="col-sm-3 col-form-label" for="exampleInputPassword2">
+                    Password
+                </label>
+                <div _ngcontent-orq-c5="" class="col-sm-9">
+                    <input _ngcontent-orq-c5="" 
+                            class="form-control" 
+                            id="exampleInputPassword2" 
+                            placeholder="Password" 
+                            type="password"
+                            formControlName="password">
+                </div>
+            </div>
+            <button _ngcontent-orq-c5="" class="btn btn-success mr-2" type="submit">
+                Submit
+            </button>
+                <button _ngcontent-orq-c5="" class="btn btn-light">
+                    Cancel
+                </button>
+        </form>
+    </div>
+
+</div>
