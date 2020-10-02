@@ -1,0 +1,25 @@
+.center{
+    margin: auto;
+    width: 80%;
+    border: 3px solid rgb(11, 21, 24);
+    padding: 5px;
+}
+
+
+.reduc{
+
+    width: 10px;
+    height: 10px;
+    box-shadow: lightgreen;
+}   
+
+.reduc img {
+
+    object-fit: contain;
+}
+
+.avatar{
+    border: 1px solid gray;
+    width: 95px;
+    border-radius: 100%;
+}

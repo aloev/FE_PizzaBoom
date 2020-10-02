@@ -1,1 +1,219 @@
-<p>dashboard works!</p>
+
+
+
+ <div id="header-wrapper">
+  <header id="header" class="container">
+
+    <!-- Logo -->
+      <div id="logo">
+        <h1><a >PizzaBoom</a></h1>
+        </div>
+
+    <!-- Nav -->
+      <nav id="nav">
+        <ul>
+          <li class="" style="white-space: nowrap;"><a href="">Bienvenido</a></li>
+          <li style="white-space: nowrap;"><a href="#">Menu</a></li>
+          <li style="white-space: nowrap;">
+            <a href="">
+              Contactanos
+            <app-card-checkout></app-card-checkout>
+          </a>
+        </li>
+          <li style="white-space: nowrap;"><a routerLink="/checkout">
+            <!-- <i class="fas fa-shopping-cart"></i> -->
+            <!-- <i class="fa fa-youtube" aria-hidden="true"></i> -->
+            <!-- <i class="fas fa-cart-arrow-down"></i> -->
+            <i  class="fa fa-credit-card"></i>
+            <!-- <i class="fas fa-truck"></i> -->
+            <!-- <i class="fa fa-dolly"></i> -->
+            <!-- <i class="fas fa-handshake"></i> -->
+          </a></li>
+        </ul>
+      </nav>
+
+  </header>
+</div>
+
+<!-- Banner -->
+<div id="banner-wrapper">
+  <div id="banner" class="box container">
+    <div class="row">
+      
+    </div>
+  </div>
+</div>
+
+<!--Input Autor-->
+<div class="center-input">
+  <div class="card bg-gray text-dark mb-3 pl-1" style="max-width: 19rem;">
+    <div class="card-header mt-2 ">Nombre del Pedido</div>
+    <div class="card-body  mt-2 mb-2 col-10">
+      <h5 class="card-title mt-1">Debe Agregarlo</h5>
+      <form class="app-search"
+            (submit)="agregarAutor()"
+            [formGroup]="autorform">
+        
+        <input formControlName="nombre" type="text" class="mt-2">
+
+        <button type="submit" class="btn btn-outline-primary mt-4">
+          Agregar
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<!--Nombre desplegados en forma de Botones-->
+<div class="container-fluid row">
+  <div class="mt-auto  space-names">
+    <div *ngIf="kahoot">
+      <div *ngFor="let item of kahoot">
+        <button class="btn btn-primary float-left">
+          {{item}}
+        </button>
+      </div>
+        <!-- <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button>
+        <button class="btn btn-outline-warning">
+          Hola
+        </button>
+
+      <button class="btn btn-outline-success">
+        adios
+       </button> -->
+    </div>
+  
+  </div>
+
+</div>
+
+
+
+<app-carousel></app-carousel>
+<app-modal></app-modal>

@@ -1,0 +1,52 @@
+
+
+.reducer {
+
+    padding-top: 5%;
+    padding-bottom: 10%;
+    width: 500px;
+    height: 200%;
+    margin-left: 20%;
+    position: relative;
+    box-shadow: lightgreen;
+}   
+
+.reducer img {
+    
+    
+    object-fit: contain;
+}
+
+
+/* .resiz {
+  
+    width: 200px;
+    height: 120px;
+}
+
+.resiz img {
+    width: 100%;
+    height: auto;
+} */
+
+
+/* .oculto {
+    display: none;
+}
+
+.fondo-modal-imagen{
+    background-color: rgba(0, 0, 0, 0.4);
+    left: 0px;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 9999   ;
+}
+
+.fast{
+    -webkit-animation-duration:1¡0.3s;
+    animation-duration:0.3s;
+    -webkit-animation-fill-mode:both;
+    animation-fill-mode:both
+} */

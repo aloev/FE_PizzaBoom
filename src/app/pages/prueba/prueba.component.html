@@ -1,0 +1,97 @@
+<!-- <input type="number" value="1" min="0" max="10" step="1" />
+
+
+<script src="../../../../node_modules/bootstrap-input-spinner/src/bootstrap-input-spinner.js"></script>
+<script>
+    $("input[type=number]").inputSpinner();
+</script> -->
+
+<!-- <div class="counter-product-light"><button class="subtract" disabled="">-</button><div> 1</div><button>+</button></div> -->
+
+<!-- 
+<select class="qty-container__change-quantity" name="1|Quantity" aria-label="Cantidad:" data-quid="qty-dropdown-1">
+    <option selected="" value="1">
+      1
+    </option><option [selected]="" (click)="seleccionado()" value="2">
+      2
+    </option>
+    <option (click)="seleccionado('value')" value="3">
+      3
+    </option><option (click)="seleccionado('value')" value="4">
+      4
+    </option>
+</select> -->
+
+      <!--   <option (click)="seleccionado(value)" value="5">
+      5
+    </option><option (click)="seleccionado(value)" value="6">
+      6
+    </option><option (click)="seleccionado(value)" value="7">
+      7
+    </option><option (click)="seleccionado(value)" value="8">
+      8
+    </option><option (click)="seleccionado(value)" value="9">
+      9
+    </option><option (click)="seleccionado(value)" value="10">
+      10
+    </option><option (click)="seleccionado(value)" value="11">
+      11
+    </option><option (click)="seleccionado(value)" value="12">
+      12
+    </option><option (click)="seleccionado(value)" value="13">
+      13
+    </option><option (click)="seleccionado(value)" value="14">
+      14
+    </option><option (click)="seleccionado(value)" value="15">
+      15
+    </option><option (click)="seleccionado(value)" value="16">
+      16
+    </option><option (click)="seleccionado(value)" value="17">
+      17
+    </option><option (click)="seleccionado(value)" value="18">
+      18
+    </option><option (click)="seleccionado(value)" value="19">
+      19
+    </option><option (click)="seleccionado(value)" value="20">
+      20
+    </option><option (click)="seleccionado(value)" value="21">
+      21
+    </option><option (click)="seleccionado(value)" value="22">
+      22
+    </option><option (click)="seleccionado(value)" value="23">
+      23
+    </option><option (click)="seleccionado(value)" value="24">
+      24
+    </option><option (click)="seleccionado(value)" value="25">
+      25
+    </option> -->
+
+
+    <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+        <option value="0">Selecciona</option>
+        <option *ngFor="let dato of datos">
+          {{dato}}
+        </option>
+    </select>
+    
+    <!-- Prueba para ver la opción seleccionado -->
+    <!-- <p [hidden]="opcionSeleccionado == '0'">Haz seleccionado la opción # {{ verSeleccion }}</p> -->
+
+
+    <form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+    <!---->
+

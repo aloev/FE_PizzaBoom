@@ -1,0 +1,44 @@
+<p>checkout works!</p>
+<div class="center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Pedido</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio Unidad</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Total</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let plato of arreglo; let i= index">
+            <th scope="row">{{i+1}}</th>
+            <td class="text-center reduc">
+              <img [src]="plato.img" alt="" class="avatar">
+            </td>
+            <td>{{plato.nombre}}</td>
+            <td>{{plato.precio}}</td>
+            <td>
+              <select [(ngModel)]="opcionSeleccionado" (change)="variarCant(plato)">
+                <option value="0">{{plato.cantidad}}</option>
+                <option *ngFor="let dato of datos">
+                  {{dato}}
+                </option>
+            </select>
+              
+            </td>
+            <td>{{plato.total}}</td>
+            <td class="text-nowrap text-center">
+              <a data-toggle="tooltip" 
+                  (click)="eliminarPed(plato)">
+                <i class="fa fa-close text-danger"></i>
+              </a>
+            </td>
+          </tr>
+          <h4>{{total}}</h4>
+
+        </tbody>
+      </table>
+</div>

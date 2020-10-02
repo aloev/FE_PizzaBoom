@@ -13,9 +13,6 @@ export class LoginComponent implements OnInit {
 
   public inizilizarForm: FormGroup;
 
-
-
-
   constructor(
                 private router: Router,
                 private fb: FormBuilder,
@@ -29,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   initForm(){
     this.inizilizarForm = this.fb.group({
+      // Por si remember me = True
       email: [ localStorage.getItem('email') || '' ,  [Validators.required, Validators.email]],
       password: ['',  Validators.required],
     
