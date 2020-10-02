@@ -48,6 +48,8 @@ export class DashboardComponent implements OnInit {
   agregarAutor(){
 
     let palabra: string = this.autorform.get('nombre').value;
+
+    if (palabra.length === 0){ return ; }
     
     this.kahoot.push(palabra);
     this.dashServicio.losowners = this.kahoot;

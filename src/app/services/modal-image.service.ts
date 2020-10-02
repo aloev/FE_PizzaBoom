@@ -1,12 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Comida } from '../models/comida.model';
 import { map } from 'rxjs/operators';
+import { DashboardService } from './dashboard.service';
+import { element } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalImageService {
 
+  public deautores: string[] = [];
 
   public _ocultarModal: boolean = true;
 
@@ -74,88 +77,113 @@ export class ModalImageService {
 
   guardarLocalStorage( dish: Comida ){
 
-    const nam1 = ['Pizza','Hamburguesa','Panzzeroti' ];
-    let pedidos1  = localStorage.getItem('productos');
+    // const nam1 = ['Pizza','Hamburguesa','Panzzeroti' ];   // Reference
 
+    // this.deautores = this.dashbS.losowners;
+
+
+    // console.log('autor', this.deautores);
+    
+
+    let pedidos1  = localStorage.getItem('productos');
     pedidos1 = JSON.parse(pedidos1);
     let pedidos;
 
+    // console.log('mira', pedidos1);
+    // console.log('entrante', dish);
+    
+
                   // Posee o No
     if( pedidos1){
-      for( let item of nam1 ){
-        let temp;
 
-        try {
-          temp = pedidos1[dish.nombre].nombre;       // Evalua Keys de Obj
-        } catch (e) {
-          temp = null;
-        }
-                     // Coincide o No
-                     
+      this.deautores = Object.keys(pedidos1);
+      
+      console.log('entrando');
+      
 
-        if(temp && pedidos1[dish.nombre].autor === dish.autor ){
-          console.log(pedidos1[dish.nombre].autor);
-          console.log(dish.autor);
+      // tslint:disable-next-line: forin
+      for ( let i in pedidos1 as {}, this.deautores ){
 
-            if( pedidos1[dish.nombre].nombre === item && pedidos1[dish.nombre].autor === dish.autor){         // sobra
-
-              let int1 = parseInt(dish.cantidad);
-              let int2 = parseInt(pedidos1[dish.nombre].cantidad);
-              let sum = int1 + int2;
-              
-            
-              dish.total =  sum * dish.precio;
-
-              const n  = sum.toString();
-              console.log('Existe compatibilidad');
-              dish.cantidad = n;
-
-
-              // pedidos = {
-              //   ...pedidos1 as {},             // Conserva
-              //   'pepito': {[ dish.nombre ]: dish}
-              // }
-              // console.log('ped', pedidos);
-              
-              pedidos = {
-                
-                ...pedidos1 as {},             // Conserva
-                [ dish.nombre ]: dish
-              }
-              break;
-            }
-        }
-              // Nueva Orden
-        else {
-          let quant = parseInt(dish.cantidad);
-          dish.total =  quant * dish.precio;
-
-          console.log('Hola', dish.autor);
+        console.log('localS', this.deautores[i]);
+        console.log('entrante', dish.autor);
+        
+        if( this.deautores[i] === dish.autor ){
           
 
+          // Ojo: Si concuerdan , pedidos1[dish.autor] es VALIDO
+          console.log('Hubo match', pedidos1[dish.autor]);
           pedidos = {
             ...pedidos1 as {},
-             [ dish.nombre ]: dish,
-          }
-          
-          console.log(pedidos);
-          
-           // let pedidoA = { ...pedidos1 as {}};
-          // let pedidoB = {'pepito':{[ dish.nombre ]: dish}};
-          
-          // console.log('A', pedidoA);
-          // console.log('B', pedidoB);
-          // console.log(pedidos);
-
+             [ dish.autor ]: [ {[ dish.nombre ] : dish } ],
+          };
+          break;
         }
+        else{
+          console.log('no hubo');
+          pedidos = {
+                  ...pedidos1 as {},
+                   [ dish.autor ]: [ { [ dish.nombre ] : dish } ],
+                };
+          
+        }    
+
       }
+
+
+      // for( let item of nam1 ){
+      //   let temp;
+
+      //   try {
+      //     temp = pedidos1[dish.autor];       // Evalua Keys de Obj
+      //   } catch (e) {
+      //     temp = null;
+      //   }
+      //                // Coincide o No
+                     
+
+      //   if(temp && pedidos1[dish.nombre].autor === dish.autor ){
+
+
+      //       if( pedidos1[dish.nombre].nombre === item && pedidos1[dish.nombre].autor === dish.autor){         // sobra
+
+      //         let int1 = parseInt(dish.cantidad);
+      //         let int2 = parseInt(pedidos1[dish.nombre].cantidad);
+      //         let sum = int1 + int2;
+              
+            
+      //         dish.total =  sum * dish.precio;
+
+      //         const n  = sum.toString();
+      //         dish.cantidad = n;
+              
+      //         pedidos = {
+                
+      //           ...pedidos1 as {},             // Conserva
+      //           [ dish.autor ]: dish
+      //         }
+      //         break;
+      //       }
+      //   }
+      //         // Nueva Orden
+      //   else {
+      //     let quant = parseInt(dish.cantidad);
+      //     dish.total =  quant * dish.precio;
+
+
+      //     pedidos = {
+      //       ...pedidos1 as {},
+      //        [ dish.autor ]: [ { [ dish.nombre ] : dish } ],
+      //     }
+      //   }
+      // }
     }
                   // Primera Vez
     else {
       let quant = parseInt(dish.cantidad);
       dish.total =  quant * dish.precio;
       pedidos = {
-        [ dish.nombre ]: dish
+
+        [dish.autor] : [ { [dish.nombre]: dish } ]
       }
 
     }
@@ -163,6 +191,6 @@ export class ModalImageService {
     localStorage.setItem('productos', JSON.stringify(pedidos));
   }
 
-  constructor(  
+  constructor(  public dashbS: DashboardService
     ) { }
 }
