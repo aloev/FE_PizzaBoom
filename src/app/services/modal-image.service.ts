@@ -130,7 +130,7 @@ export class ModalImageService {
           let quant = parseInt(dish.cantidad);
           dish.total =  quant * dish.precio;
 
-          console.log(dish.autor);
+          console.log('Hola', dish.autor);
           
 
           pedidos = {
