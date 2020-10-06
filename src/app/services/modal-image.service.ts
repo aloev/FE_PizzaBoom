@@ -111,10 +111,16 @@ export class ModalImageService {
           
 
           // Ojo: Si concuerdan , pedidos1[dish.autor] es VALIDO
-          console.log('Hubo match', pedidos1[dish.autor]);
+          console.log('Hubo match', pedidos1[dish.nombre]);
+
+          // let pad;
+          // pad = {
+          //   [ pedidos1[dish.autor]] : [ { [dish.nombre]: pedidos1[dish] } ]
+          // }
+          console.log('miralo', );
           pedidos = {
-            ...pedidos1 as {},
-             [ dish.autor ]: [ {[ dish.nombre ] : dish } ],
+            ...pedidos1 as {},                                       // por el [0]
+             [ dish.autor ]: [  {[pedidos1[dish.nombre]]: pedidos1[dish.autor][0] }, {[ dish.nombre ] : dish } ],
           };
           break;
         }
@@ -122,60 +128,13 @@ export class ModalImageService {
           console.log('no hubo');
           pedidos = {
                   ...pedidos1 as {},
-                   [ dish.autor ]: [ { [ dish.nombre ] : dish } ],
+                  [ dish.autor ]: [ {[ dish.nombre ] : dish } ]
                 };
           
         }    
 
       }
 
-
-      // for( let item of nam1 ){
-      //   let temp;
-
-      //   try {
-      //     temp = pedidos1[dish.autor];       // Evalua Keys de Obj
-      //   } catch (e) {
-      //     temp = null;
-      //   }
-      //                // Coincide o No
-                     
-
-      //   if(temp && pedidos1[dish.nombre].autor === dish.autor ){
-
-
-      //       if( pedidos1[dish.nombre].nombre === item && pedidos1[dish.nombre].autor === dish.autor){         // sobra
-
-      //         let int1 = parseInt(dish.cantidad);
-      //         let int2 = parseInt(pedidos1[dish.nombre].cantidad);
-      //         let sum = int1 + int2;
-              
-            
-      //         dish.total =  sum * dish.precio;
-
-      //         const n  = sum.toString();
-      //         dish.cantidad = n;
-              
-      //         pedidos = {
-                
-      //           ...pedidos1 as {},             // Conserva
-      //           [ dish.autor ]: dish
-      //         }
-      //         break;
-      //       }
-      //   }
-      //         // Nueva Orden
-      //   else {
-      //     let quant = parseInt(dish.cantidad);
-      //     dish.total =  quant * dish.precio;
-
-
-      //     pedidos = {
-      //       ...pedidos1 as {},
-      //        [ dish.autor ]: [ { [ dish.nombre ] : dish } ],
-      //     }
-      //   }
-      // }
     }
                   // Primera Vez
     else {
