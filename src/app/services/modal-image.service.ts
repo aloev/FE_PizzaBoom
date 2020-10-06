@@ -2,6 +2,9 @@ import { Injectable, OnInit } from '@angular/core';
 import { Comida } from '../models/comida.model';
 import { map } from 'rxjs/operators';
 
+
+// Rama-Redux
+
 @Injectable({
   providedIn: 'root'
 })
