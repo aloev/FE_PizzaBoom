@@ -18,6 +18,12 @@ import { PruebaComponent } from './pages/prueba/prueba.component';
 import { InputSelectorComponent } from './components/input-selector/input-selector.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { CardCheckoutComponent } from './components/card-checkout/card-checkout.component';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './store/app.reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { EffectsArray } from './store/effects/index';
 
 @NgModule({
   declarations: [
@@ -42,6 +48,14 @@ import { CardCheckoutComponent } from './components/card-checkout/card-checkout.
     CarouselModule,
     BrowserAnimationsModule,
     NgbModule,
+
+
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot(EffectsArray),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

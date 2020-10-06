@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { ModalImageService } from '../../services/modal-image.service';
 import { Comida } from '../../models/comida.model';
 import { DashboardService } from '../../services/dashboard.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.reducers';
+import { cargarMenu } from '../../store/actions/menu.actions';
 
 @Component({
   selector: 'app-carousel',
@@ -13,36 +15,13 @@ import { DashboardService } from '../../services/dashboard.service';
 export class CarouselComponent implements OnInit {
 
 
-  public platos: Comida[] = [
-
-    {
-      'nombre'        : 'Pizza',
-      'descripcion'   : 'mamcakñmvamcñamclas',
-      'img'           : '../../../assets/img/pic01.jpg',
-      'precio'        :   60,
-
-    },
-    {
-      'nombre'        : 'Hamburguesa',
-      'descripcion'   : 'mamcakñmvamcñamclas',
-      'img'           : '../../../assets/img/pic02.jpg',
-      'precio'        :   40,
-
-    },
-    {
-      'nombre'        : 'Panzerotti',
-      'descripcion'   : 'mamcakñmvamcñamclas',
-      'img'           : '../../../assets/img/pic03.jpg',
-      'precio'        :   20,
-
-    },
-
-  ]
+  public dePlatos : Comida[] = [];
 
   public mirar: boolean = true;
 
-  constructor( private _ngcarousel: NgbCarouselConfig,
-              public modalImageS: ModalImageService,
+  constructor(  private store: Store<AppState>,
+                private _ngcarousel: NgbCarouselConfig,
+              // public modalImageS: ModalImageService,
 
     ){
       _ngcarousel.interval = 5000;
@@ -51,7 +30,13 @@ export class CarouselComponent implements OnInit {
   }
   ngOnInit(): void {
 
-  
+    this.store.select('menu').subscribe( ({ platos}) => {
+
+      this.dePlatos = platos;
+      
+    });
+
+    this.store.dispatch( cargarMenu());
 
     // console.log(this.platos);
 
@@ -62,7 +47,7 @@ export class CarouselComponent implements OnInit {
 
     this.mirar = false;
     // console.log(plato);
-    this.modalImageS.abrirModal(plato);
+    // this.modalImageS.abrirModal(plato);
   }
   // public ocultarModal: boolean = true;
 
