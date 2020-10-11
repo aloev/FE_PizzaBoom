@@ -38,7 +38,7 @@ export class CarouselComponent implements OnInit {
 
     this.store.dispatch( cargarMenu());
 
-    // console.log(this.platos);
+
 
   }
 

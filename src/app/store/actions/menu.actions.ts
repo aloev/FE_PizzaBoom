@@ -1,7 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 import { Comida } from '../../models/comida.model';
 
-export const cargarMenu = createAction('[Platos] Cargar Platos ');
+
+
+
+export const cargarMenu = createAction(
+    '[Platos] Cargar Platos '
+);
 
 
 export const cargarMenuExito = createAction(

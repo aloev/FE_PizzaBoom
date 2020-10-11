@@ -51,10 +51,10 @@
     <div class="card-body  mt-2 mb-2 col-10">
       <h5 class="card-title mt-1">Debe Agregarlo</h5>
       <form class="app-search"
-            (submit)="agregarAutor()"
-            [formGroup]="autorform">
+            (ngSubmit)="agregarAutor()"
+            >
         
-        <input formControlName="nombre" type="text" class="mt-2">
+        <input [(ngModel)]="newescucharUser.nombre" name="hola" type="text" class="mt-2">
 
         <button type="submit" class="btn btn-outline-primary mt-4">
           Agregar
