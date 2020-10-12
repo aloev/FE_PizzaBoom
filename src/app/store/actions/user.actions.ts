@@ -7,6 +7,7 @@ import { User, Usuario } from '../../models/user.model';
 
 export const CREATE = '[Usuarios] Crear'
 export const DELETE = '[Usuarios] Eliminar'
+export const DELETESucces = '[Usuarios] Eliminar Success'
 
 export class CrearUsuario implements Action {
 
@@ -20,6 +21,28 @@ export class EliminarUsuario implements Action {
     constructor(public id: string){}
 }
 
+export class EliminarUsuarioSu implements Action {
+
+    readonly type = DELETESucces;
+    constructor(){}
+}
+
+export const deleteUser = createAction(
+   
+    '[Usuarios] Eliminar Success',
+    props<{  id: string}>()
+);
+export const createUser = createAction(
+   
+    '[Usuarios] Crear Success',
+    props<{  usuario: Usuario}>()
+);
+
+export const eliminacionGood = createAction(
+
+    '[Usuarios] Eliminacion Exitosa',
+
+);
 
 
 export type UserActions = CrearUsuario | EliminarUsuario ;

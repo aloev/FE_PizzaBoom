@@ -3,10 +3,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DashboardService } from '../../services/dashboard.service';
 import { AppState } from '../../store/app.reducers';
-import { CrearUsuario } from '../../store/actions/user.actions';
+import * as userActions from '../../store/actions/user.actions';
 import { User, Usuario } from '../../models/user.model';
 import { Observable } from 'rxjs';
 import { UserState } from '../../store/reducers/user.reducer';
+import { DELETE } from '../../store/actions/user.actions';
 
 
 @Component({
@@ -17,7 +18,8 @@ import { UserState } from '../../store/reducers/user.reducer';
 export class DashboardComponent implements OnInit {
 
 
-  public kahoot: string[] = [] ;
+  public kahoot: Usuario[] = [] ;
+  public popo: Usuario[] = [];
 
   escucharUser: Observable<Array<Usuario>>;
   newescucharUser: Usuario = { nombre: '', id:'' }
@@ -32,55 +34,59 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    setTimeout(() => {
-      this.llenarAutores();
-    }, 500); 
-
+    this.llenarAutores();   // Renderiza autores del LS
+    this.reEnviarUsuarios();   // Recarga State
   }
 
+  reEnviarUsuarios(){
+    for ( let i of this.kahoot ){
+      // this.store.dispatch( new userActions.CrearUsuario(i));
+      this.store.dispatch(userActions.createUser({usuario: i}));
+
+    }
+  }
+
+  // En la barra local
   llenarAutores(){
-
     this.kahoot = [];
-    // console.log('antes', this.kahoot);
-    let reps = this.dashServicio.getAutores();
-    
-    if (reps === null){ return;}
+    this.dashServicio.getAutores().subscribe( (item: Usuario[]) => {
+            
+      this.kahoot = item;
 
-    
-    this.kahoot = reps;
-    // console.log('despues', this.kahoot);
-    
+    });
   }
-
-
 
   agregarAutor(){
-
-    console.log('mira', this.newescucharUser);
-    
 
     const envio: Usuario = {
       id: new Date().getUTCMilliseconds().toString(),
       nombre: this.newescucharUser.nombre
-    }
-    this.store.dispatch(new CrearUsuario(envio));
+    };
 
-    
+    this.store.dispatch(userActions.createUser({usuario: envio}));
+    // this.store.dispatch(new userActions.CrearUsuario(envio));
 
-    // usuari.push(Elnombre);
-
-    // this.store.dispatch( crearUsuario( { usuario: usuari } ));
-
-    
-    this.kahoot.push(this.newescucharUser.nombre);
-    this.dashServicio.losowners = this.kahoot;
+    this.dashServicio.losowners.push(envio);
     this.dashServicio.agregarAutores();
 
+
+    // Segunda parte
+    this.llenarAutores();
+
+    // Hacia el modal
     this.dashServicio.autoresE.emit(this.kahoot);
     this.newescucharUser = { nombre :'' };
-    // console.log('ve', palabra.toLowerCase());
 
   }
 
+  deleteUser(id: string ){
+
+    
+    // this.store.dispatch( new userActions.EliminarUsuario(id));
+    this.store.dispatch(userActions.deleteUser({id}));
+
+
+    this.llenarAutores();
+  }
 
 }

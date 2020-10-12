@@ -69,9 +69,9 @@
 <div class="container-fluid row">
   <div class="mt-auto  space-names">
     <div *ngIf="kahoot">
-      <div *ngFor="let item of kahoot">
-        <button class="btn btn-primary float-left">
-          {{item}}
+      <div *ngFor="let item of kahoot" >
+        <button class="btn btn-primary float-left" (click)="deleteUser(item.id)">
+          {{item.nombre}}
         </button>
       </div>
         <!-- <button class="btn btn-outline-warning">

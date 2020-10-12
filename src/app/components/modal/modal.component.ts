@@ -4,6 +4,7 @@ import { CarouselComponent } from '../carousel/carousel.component';
 import { Comida } from '../../models/comida.model';
 import { DashboardService } from '../../services/dashboard.service';
 import { Subscription } from 'rxjs';
+import { Usuario } from '../../models/user.model';
 
 @Component({
   selector: 'app-modal',
@@ -20,7 +21,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   public plato: Comida[] = [];
 
-  public losautores: string[] = [];
+  public losautores: Usuario[] = [];
 
 
   public datos;
@@ -76,7 +77,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     if( resp === null){ return;}
 
-    this.losautores =   resp;
+    // this.losautores =   resp;   -- Revisar
 
   }
 

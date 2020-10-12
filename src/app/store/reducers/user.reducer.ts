@@ -5,6 +5,7 @@ import * as actions from '../actions';
 import { User, Usuario } from '../../models/user.model';
 
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
+import { deleteUser, createUser } from '../actions/user.actions';
 
 
 // Entity Adapter
@@ -29,23 +30,40 @@ export const initialState : UserState = usuarioAdapter.getInitialState({
     error: undefined
 });
 
-export function usuarioReducer(
-    state: UserState = initialState,
-    action: actions.UserActions
-){
 
-    switch (action.type){
+// Reducer - Modificar State
 
-        case actions.CREATE:
-            return usuarioAdapter.addOne(action.usuario, state);
+export const usuarioReducer = createReducer(
+    initialState,
+
+    on(createUser, (state, action) => {
+        return usuarioAdapter.addOne(action.usuario, state);
+
+        }
+    ),
+    on(deleteUser, (state, {id}) => {
+        return usuarioAdapter.removeOne(id, state);
+
+        }
+    ),
+
+    // switch (action.type ){
+
+    //     case actions.CREATE:
+    //         return usuarioAdapter.addOne(action.usuario, state);
         
-        case actions.DELETE:
-            return usuarioAdapter.removeOne(action.id, state);
+    //     case actions.DELETE:
+    //         return usuarioAdapter.removeOne(action.id, state);
+            
+    //     // case: actions.deleteUser:
+    //     //     return usuarioAdapter.removeOne(action.id, state);
 
-        default:
-            return state;
-    }
-}
+    //     default:
+    //         return state;
+    // }
+// }
+
+);
 
 // Revisar Esta parte --
 

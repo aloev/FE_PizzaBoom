@@ -4,6 +4,9 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Comida } from '../models/comida.model';
 // import 'rxjs/add/observable';
 import { Observable, of } from 'rxjs';
+import { Usuario } from '../models/user.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.reducers';
 
 
 @Injectable({
@@ -39,11 +42,12 @@ export class DashboardService {
   ]
 
 
-  autoresE = new EventEmitter<string[]>();
+  autoresE = new EventEmitter<Usuario[]>();  // para el Modal
 
-  public losowners: string[] = [] ;
+  // public losowners: string[] = [] ;
+  public losowners: Usuario[] = [] ;
 
-  constructor() { }
+  constructor( private store: Store<AppState>) { }
 
   getMenu(): Observable<any> {  // Weird
     return of(this.platos) ;
@@ -52,40 +56,38 @@ export class DashboardService {
 
 
   agregarAutores(){
-
+    
     localStorage.setItem('autores', JSON.stringify(this.losowners));
-    this.getAutores();
+    
   }
 
-  getAutores(){
+  getAutores(): Observable<Usuario[]>{
 
     let autores = localStorage.getItem('autores');
     autores = JSON.parse(autores);
 
     if (autores === null) {
-
       return null;
     }
     else {
-      
-      // console.log( typeof autores);
-      
       let authors: {} = autores;
-      // console.log( typeof authors);
-      
       this.losowners = [];
-      Object.values(authors).map((item: string) => {
-        // console.log( typeof item);
-  
-        this.losowners.push(item);
-  
-      });
 
-      return this.losowners;
+      // Se hace la divission entre id - nombre, solo se inserta el nombre
+
+      Object.values(authors).map((item: Usuario) => {
+        this.losowners.push(item);
+      });
+      return of(this.losowners);
     }
 
-
+    
   }
 
+  eliminarAutor(id: string ): Observable<any>{
 
+    this.losowners = this.losowners.filter( item => item.id !== id  );
+    this.agregarAutores();
+    return of(this.losowners);
+  }
 }
