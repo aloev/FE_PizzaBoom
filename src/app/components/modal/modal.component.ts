@@ -3,8 +3,18 @@ import { ModalImageService } from '../../services/modal-image.service';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { Comida } from '../../models/comida.model';
 import { DashboardService } from '../../services/dashboard.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Usuario } from '../../models/user.model';
+import { Store } from '@ngrx/store';
+import * as fromUser from '../../store/app.reducers';
+import {  selectAll, selectEntities, selectIds } from 'src/app/store/reducers';
+// import { getsom } from '../../store/reducers/index';
+import { ejecutarOrden } from '../../store/actions/orden.actions';
+import { Orden } from '../../models/orden.model';
+
+
+import * as fromUSer from '../../store/reducers/user.reducer';
+
 
 @Component({
   selector: 'app-modal',
@@ -13,11 +23,6 @@ import { Usuario } from '../../models/user.model';
 })
 export class ModalComponent implements OnInit, OnDestroy {
 
-  // public hidemodal: boolean = true;
-  // public elnombre: string;
-  // public eldescripcion: string;
-  // public elimg: string;
-  // public elprecio: number;
 
   public plato: Comida[] = [];
 
@@ -40,9 +45,10 @@ export class ModalComponent implements OnInit, OnDestroy {
   constructor(
             public modalImageS: ModalImageService,
             public dashServicio: DashboardService,
+            private store: Store<fromUser.AppState>,
         ) { 
           this.datos = [1,2,3,4,5,6,7,8,9,10];
-          this.aDish = this.modalImageS.deDish;
+          
 
     // this.hidemodal = this.modalImageS.ocultarModal;
   }
@@ -52,33 +58,19 @@ export class ModalComponent implements OnInit, OnDestroy {
     // this.arregloSubscription.unsubscribe();
   }
 
-  
+
 
   ngOnInit(): void {
 
-
-    this.arregloSubscription = this.dashServicio.autoresE.subscribe( creadores => {
-      this.losautores = creadores;
-      // console.log(this.losautores);
-      
+    this.store.select(fromUSer.selectAll).subscribe((items: Usuario[]) => {
+      this.losautores = items;
     });
 
-    this.lectura();
-    
-    setTimeout(() => {
-      this.desplegarAutores();
-    },
-     1000); 
-  }
-
-  async desplegarAutores() {
-    
-    let resp = await this.dashServicio.getAutores();
-
-    if( resp === null){ return;}
-
-    // this.losautores =   resp;   -- Revisar
-
+    this.modalImageS.carta$.subscribe( (plato: Comida) => {
+      this.aDish = plato;
+      console.log('llegooo', this.aDish);
+      
+    });
   }
 
 
@@ -90,33 +82,36 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   leerA(){ this.verautor = this.autorSelected;}
 
-  lectura(){
-
-    if( this.modalImageS.ocultarModal === false ){
-      console.log('Pailana');
-      
-    }
-  }
-
-  // accionar(){
-
-  //   this.ocultarmodal = false;
-  //   console.log('hollaaa');
-    
-  // }
-
   closeModal(){
+    
     this.modalImageS.cerrarModal();
   }
 
 
   addPedido(){
 
+    // Lo unico que pasamos acà es cantidad y Autor
+
+    let nombredel: Usuario;
+
+    for( let index of this.losautores ){
+
+      if( this.verautor === index.nombre ){
+        nombredel = index;
+      }
+    }
+
+    const enviar: Orden = {
+
+      id: new Date().getUTCMilliseconds().toString(),
+      cliente: this.verautor,
+      platos: [this.aDish],
+      userId: nombredel.id
+    };
+
+    this.store.dispatch( ejecutarOrden( {orden: enviar}));
     this.modalImageS.hacerPedido(this.verSeleccion , this.verautor);
     this.closeModal();
-    // this.elnombre = this.modalImageS.nombre;
-    // this.eldescripcion = this.modalImageS.descripcion;
-    // this.elimg = this.modalImageS.img;
-    // this.elprecio = this.modalImageS.precio;
+
   }
 }

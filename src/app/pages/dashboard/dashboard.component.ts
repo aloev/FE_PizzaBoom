@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
   public kahoot: Usuario[] = [] ;
   public popo: Usuario[] = [];
-
+    
   escucharUser: Observable<Array<Usuario>>;
   newescucharUser: Usuario = { nombre: '', id:'' }
 
@@ -35,7 +35,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     this.llenarAutores();   // Renderiza autores del LS
-    this.reEnviarUsuarios();   // Recarga State
+    this.reEnviarUsuarios();   // Recarga al State
+            
   }
 
   reEnviarUsuarios(){
@@ -50,9 +51,7 @@ export class DashboardComponent implements OnInit {
   llenarAutores(){
     this.kahoot = [];
     this.dashServicio.getAutores().subscribe( (item: Usuario[]) => {
-            
       this.kahoot = item;
-
     });
   }
 
@@ -70,22 +69,19 @@ export class DashboardComponent implements OnInit {
     this.dashServicio.agregarAutores();
 
 
+
     // Segunda parte
     this.llenarAutores();
 
-    // Hacia el modal
-    this.dashServicio.autoresE.emit(this.kahoot);
+
+    
     this.newescucharUser = { nombre :'' };
 
   }
 
   deleteUser(id: string ){
-
-    
     // this.store.dispatch( new userActions.EliminarUsuario(id));
     this.store.dispatch(userActions.deleteUser({id}));
-
-
     this.llenarAutores();
   }
 

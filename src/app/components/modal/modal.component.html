@@ -57,7 +57,7 @@
                             <select [(ngModel)]="autorSelected" (change)="leerA()">
                                 <option value="0">Selecciona</option>
                                 <option *ngFor="let dato of losautores">
-                                  {{dato}}
+                                  {{dato.nombre}}
                                 </option>
                             </select>
                             

@@ -18,6 +18,7 @@ export class DashboardService {
   public platos: Comida[] = [
 
     {
+      'id'            : '1',
       'nombre'        : 'Pizza',
       'descripcion'   : 'mamcakñmvamcñamclas',
       'img'           : '../../../assets/img/pic01.jpg',
@@ -25,6 +26,7 @@ export class DashboardService {
 
     },
     {
+      'id'            : '2',
       'nombre'        : 'Hamburguesa',
       'descripcion'   : 'mamcakñmvamcñamclas',
       'img'           : '../../../assets/img/pic02.jpg',
@@ -32,6 +34,7 @@ export class DashboardService {
 
     },
     {
+      'id'            : '3',
       'nombre'        : 'Panzerotti',
       'descripcion'   : 'mamcakñmvamcñamclas',
       'img'           : '../../../assets/img/pic03.jpg',
@@ -43,6 +46,7 @@ export class DashboardService {
 
 
   autoresE = new EventEmitter<Usuario[]>();  // para el Modal
+  autoresEa = new EventEmitter<string>();  // para el Modal
 
   // public losowners: string[] = [] ;
   public losowners: Usuario[] = [] ;
@@ -56,7 +60,6 @@ export class DashboardService {
 
 
   agregarAutores(){
-    
     localStorage.setItem('autores', JSON.stringify(this.losowners));
     
   }

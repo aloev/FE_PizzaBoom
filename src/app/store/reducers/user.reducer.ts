@@ -1,11 +1,12 @@
 
 
-import { createReducer, on, createFeatureSelector } from '@ngrx/store';
+import { createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as actions from '../actions';
 import { User, Usuario } from '../../models/user.model';
 
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 import { deleteUser, createUser } from '../actions/user.actions';
+import { state } from '@angular/animations';
 
 
 // Entity Adapter
@@ -67,7 +68,8 @@ export const usuarioReducer = createReducer(
 
 // Revisar Esta parte --
 
-export const getUsuarioState = createFeatureSelector<UserState>('usuarios');
+export const getUsuarioState = createFeatureSelector<UserState>('user');
+export const getEntities = createFeatureSelector<UserState>('entities');
 
 export const {
     
@@ -78,6 +80,12 @@ export const {
 
 } = usuarioAdapter.getSelectors(getUsuarioState);
 
+export const getIds = ( state: UserState ) => state.ids;
+
+// export const selectEntidades = createSelector(
+//     getEntities,
+//     ( state: UserState) => state.ids
+// );
 
 
 

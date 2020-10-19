@@ -1,35 +1,58 @@
 
 
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, createFeatureSelector } from '@ngrx/store';
 import { cargarMenu, cargarMenuError, cargarMenuExito } from '../actions';
-import { Comida } from '../../models/comida.model';
+import { Comida, food } from '../../models/comida.model';
+import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 
-export interface MenuState {
-    platos    : Comida[],
-    loaded    : boolean,
-    loading   : boolean,
-    error     : any
+
+// Create Adapter
+
+export const foodAdapter: EntityAdapter<food> = createEntityAdapter<food>();
+
+export interface TodoFoodState extends EntityState<food> {
+    loaded    : boolean;
+    loading   : boolean;
+    error     : any;
 }
 
-export const menuInitialState: MenuState = {
-    platos    : [],
-    loaded    : false,
-    loading   : false,
-    error     : null
-}
+export const elmenuInit: TodoFoodState = foodAdapter.getInitialState({
 
-const _menuReducer = createReducer( menuInitialState,
+        loaded: false,
+        loading: false,
+        error: undefined,
+
+
+})
+
+
+// export interface MenuState {
+//     platos    : Comida[],
+//     loaded    : boolean,
+//     loading   : boolean,
+//     error     : any
+// }
+
+// export const menuInitialState: MenuState = {
+//     platos    : [],
+//     loaded    : false,
+//     loading   : false,
+//     error     : null
+// }
+
+const _menuReducer = createReducer( elmenuInit,
 
     on( cargarMenu, state => ({ ...state, loading: true })),
     
     
-    on( cargarMenuExito, (state, { platos }) => ({
-         ...state,
-        loading: false ,
-        loaded: true,
-        platos: [...platos]
-    })),
-
+    on( cargarMenuExito, (state, { platos }) => {
+        //  ...state,
+        // loading: false ,
+        // loaded: true,
+        // platos: [...platos]
+        return foodAdapter.setAll(platos, state);
+        }
+    ),
     on( cargarMenuError, (state, { payload }) => ({
          ...state,
         loading: false ,
@@ -38,6 +61,17 @@ const _menuReducer = createReducer( menuInitialState,
     })),
 
 );
+
+export const getFoodState = createFeatureSelector<TodoFoodState>('menu');
+
+export const {
+    
+    selectIds: _selectids,
+    selectEntities: _selectEntities,
+    selectAll: _selectAll,
+    selectTotal: _selectTotal
+
+} = foodAdapter.getSelectors(getFoodState);
 
 export function menuReducer(state, action) {
     return _menuReducer(state, action);
